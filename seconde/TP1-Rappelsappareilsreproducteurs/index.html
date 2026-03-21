@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ressources SVT - Mme Bourdon</title>
+    <style>
+        :root {
+            --primary: #2980b9;
+            --secondary: #27ae60;
+            --dark: #2c3e50;
+            --light: #f4f7f9;
+            --white: #ffffff;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animation de fond */
+        .bg-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .blob {
+            position: absolute;
+            width: 300px; height: 300px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: float 20s infinite alternate;
+        }
+
+        @keyframes float {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #edf2f7;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .card .icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            margin-right: 20px;
+            transition: 0.3s;
+        }
+
+        .card:hover .icon {
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-text { text-align: left; }
+        .card-title { font-weight: bold; font-size: 1.1em; display: block; }
+        .card-desc { font-size: 0.85em; color: #95a5a6; }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #bdc3c7;
+        }
+
+        /* Effet au clic */
+        .ripple {
+            position: absolute;
+            background: rgba(52, 152, 219, 0.2);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+        }
+        @keyframes ripple-animation {
+            to { transform: scale(4); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <div class="blob" style="top: 10%; left: 10%;"></div>
+        <div class="blob" style="bottom: 10%; right: 10%; background: rgba(46, 204, 113, 0.1);"></div>
+    </div>
+
+    <div class="container">
+        <h1>Ressources pour les classes de Mme Bourdon</h1>
+        <p class="subtitle">Module : Transmission de la vie chez l'Humain</p>
+
+        <nav class="menu-grid">
+            <a href="fonctionorgane.html" class="card">
+                <div class="icon">🔗</div>
+                <div class="card-text">
+                    <span class="card-title">Schéma de synthèse interactif</span>
+                    <span class="card-desc">Relier les organes à leurs fonctions biologiques (Exercice de rappel).</span>
+                </div>
+            </a>
+
+            <a href="tableaucomparaison.html" class="card">
+                <div class="icon">🎯</div>
+                <div class="card-text">
+                    <span class="card-title">Exercice de Drag & Drop</span>
+                    <span class="card-desc">Placer les termes anatomiques dans le tableau de comparaison Homme/Femme.</span>
+                </div>
+            </a>
+
+            <a href="tableaufinal.html" class="card">
+                <div class="icon">📋</div>
+                <div class="card-text">
+                    <span class="card-title">Bilan : Tableau de Correspondance</span>
+                    <span class="card-desc">Fiche de synthèse complète sur les échelles du vivant (Organe, Cellule, Molécule).</span>
+                </div>
+            </a>
+        </nav>
+
+        <footer>
+            &copy; 2024 - Sciences de la Vie et de la Terre - Académie de Mme Bourdon
+        </footer>
+    </div>
+
+    <script>
+        // Petit script pour un effet "ripple" visuel au clic sur les cartes
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                let x = e.clientX - e.target.offsetLeft;
+                let y = e.clientY - e.target.offsetTop;
+                let ripple = document.createElement('span');
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body>
+</html>
