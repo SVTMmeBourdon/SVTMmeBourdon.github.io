@@ -1,123 +1,255 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Exercice : Roches Magmatiques et Frontières de Plaques</title>
-    <style>
-        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-        .header-img { display: block; margin: 0 auto 20px; max-width: 100%; height: auto; border: 2px solid #333; }
-        
-        table { width: 100%; border-collapse: collapse; background: white; margin-bottom: 20px; }
-        th, td { border: 2px solid #333; padding: 10px; text-align: center; vertical-align: top; width: 33%; }
-        th { background-color: #d1d1d1; }
-        .drop-zone { min-height: 100px; border: 1px dashed #bbb; background: #fafafa; padding: 5px; display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
-        
-        .labels-container { background: #eee; padding: 15px; border-radius: 8px; border: 1px solid #ccc; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        .label { padding: 8px 12px; background: #fff; border: 1px solid #555; border-radius: 4px; cursor: move; font-size: 0.9em; user-select: none; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
-        .label-img { width: 80px; height: 60px; object-fit: cover; display: block; margin-bottom: 5px; }
-        
-        .feedback { margin-top: 20px; text-align: center; font-weight: bold; font-size: 1.2em; }
-        button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; display: block; margin: 20px auto; }
-        button:hover { background: #218838; }
-        
-        .correct { background-color: #d4edda !important; border-color: #28a745 !important; }
-        .incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau comparatif des principales roches magmatiques</title>
+<style>
+    body { font-family: sans-serif; background-color: #f4f7f9; padding: 20px; font-size: 13px; }
+    .container { max-width: 1300px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 0; }
+    .illustration { display: block; max-width: 25%; height: auto; margin: 0 auto 25px auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .main-content { display: flex; gap: 20px; align-items: flex-start; }
+
+    table { width: 78%; border-collapse: collapse; font-family: sans-serif; font-size: 12px; table-layout: fixed; }
+    th, td { border: 1px solid black; padding: 6px; text-align: center; vertical-align: top; }
+    .label-col { text-align: left; font-weight: bold; background-color: #f5f5f5; width: 160px; }
+    .header-row { background-color: #eeeeee; font-weight: bold; }
+
+    .dropzone { 
+        min-height: 55px; 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 4px; 
+        justify-content: center; 
+        align-content: flex-start;
+        border: 1px dashed #ccc;
+        padding: 4px;
+        background: #fffcfc;
+    }
+    .dropzone.hover { background-color: #e1f5fe; border-color: #3498db; }
+
+    .sidebar { width: 22%; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ccc; position: sticky; top: 10px; max-height: 90vh; overflow-y: auto; }
+    .cat-title { margin: 10px 0 5px 0; font-weight: bold; color: #2c3e50; border-bottom: 1px solid #ddd; font-size: 0.85em; text-transform: uppercase; }
+    .etiquettes-container { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+
+    .draggable { 
+        padding: 4px 8px; 
+        background: white; 
+        border: 1px solid #7f8c8d; 
+        border-radius: 3px; 
+        cursor: grab; 
+        font-size: 10px; 
+        user-select: none;
+        display: inline-block;
+    }
+    .draggable img { display: block; width: 50px; height: auto; pointer-events: none; }
+    
+    .placed-tag { position: relative; padding-right: 18px !important; }
+    .placed-tag img { width: 70px; }
+
+    .correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+    .incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+
+    .btn-remove { 
+        position: absolute; right: 1px; top: 1px; color: #e74c3c; cursor: pointer; 
+        font-weight: bold; background: rgba(255,255,255,0.8); border-radius: 50%;
+        width: 14px; height: 14px; line-height: 12px; text-align: center; border: 1px solid #e74c3c;
+    }
+
+    .controls { text-align: center; margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .btn-check { padding: 10px 25px; background: #27ae60; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+    .btn-reset { padding: 10px 25px; background: #e74c3c; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+    .btn-back { padding: 10px 25px; background: #34495e; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; }
+    
+    #score-display { width: 100%; margin-top: 15px; font-weight: bold; font-size: 1.1em; color: #2c3e50; }
+</style>
 </head>
 <body>
 
-    <h1 style="text-align:center;">Tableau comparatif des roches magmatiques</h1>
-    
-    <img src="3series.jpg" alt="Schéma des 3 séries magmatiques" class="header-img">
+<div class="container">
+    <h1>Tableau comparatif des principales roches magmatiques des frontières de plaques</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Frontière</th>
-                <th>En divergence (Série 1)</th>
-                <th>En convergence (Série 2 & 3)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Type de Roche (Volcanique)</strong></td>
-                <td class="drop-zone" data-correct="basalte,andésite,rhyolite,texture microlitique,présence de verre volcanique,pas de cristaux visibles,peu de cristaux visibles"></td>
-                <td class="drop-zone" data-correct="andésite,rhyolite,texture microlitique,présence de verre volcanique"></td>
-            </tr>
-            <tr>
-                <td><strong>Type de Roche (Plutonique)</strong></td>
-                <td class="drop-zone" data-correct="gabbro,diorite,granite,texture grenue,cristaux visibles"></td>
-                <td class="drop-zone" data-correct="diorite,granite,texture grenue,cristaux visibles"></td>
-            </tr>
-            <tr>
-                <td><strong>Caractéristiques (Couleur & Minéraux)</strong></td>
-                <td class="drop-zone" data-correct="roche sombre (= mélanocrate),pyroxène,plagioclase,roche claire (= leucocrate),roche moyennement sombre (= mésocrate),feldspath,mica,amphibole verte (hornblende),quartz"></td>
-                <td class="drop-zone" data-correct="roche claire (= leucocrate),roche moyennement sombre (= mésocrate),feldspath,mica,amphibole verte (hornblende),quartz"></td>
-            </tr>
-        </tbody>
-    </table>
+    <img src="3series.jpg" alt="Illustration des 3 séries magmatiques" class="illustration">
 
-    <div class="labels-container" id="labels">
-        <div class="label" draggable="true" id="basalte">Basalte</div>
-        <div class="label" draggable="true" id="gabbro">Gabbro</div>
-        <div class="label" draggable="true" id="andésite">Andésite</div>
-        <div class="label" draggable="true" id="diorite">Diorite</div>
-        <div class="label" draggable="true" id="rhyolite">Rhyolite</div>
-        <div class="label" draggable="true" id="granite">Granite</div>
-        
-        <div class="label" draggable="true" id="mélanocrate">Roche sombre (= mélanocrate)</div>
-        <div class="label" draggable="true" id="mésocrate">Roche moyennement sombre (= mésocrate)</div>
-        <div class="label" draggable="true" id="leucocrate">Roche claire (= leucocrate)</div>
-        
-        <div class="label" draggable="true" id="microlitique">Texture microlitique</div>
-        <div class="label" draggable="true" id="grenue">Texture grenue</div>
-        
-        <div class="label" draggable="true" id="cristaux-v">Cristaux visibles</div>
-        <div class="label" draggable="true" id="cristaux-nv">Pas de cristaux visibles</div>
-        
-        <div class="label" draggable="true" id="plagioclase">Plagioclase</div>
-        <div class="label" draggable="true" id="quartz">Quartz</div>
-        <div class="label" draggable="true" id="pyroxene">Pyroxène</div>
-        
-        <div class="label" draggable="true" id="img_basalte"><img src="basalte_micro.jpg" class="label-img">Lame mince 1</div>
-        <div class="label" draggable="true" id="img_granite"><img src="granite_micro.jpg" class="label-img">Lame mince 2</div>
+    <div class="main-content">
+        <table id="main-table">
+            <thead>
+                <tr class="header-row">
+                    <th>Frontière</th>
+                    <th colspan="2">En divergence</th>
+                    <th colspan="4">En convergence</th>
+                </tr>
+                <tr class="header-row">
+                    <td class="label-col">Série</td>
+                    <td colspan="2">1</td>
+                    <td colspan="2">2</td>
+                    <td colspan="2">3</td>
+                </tr>
+                <tr class="header-row">
+                    <td class="label-col">Nom de la roche</td>
+                    <td><div class="dropzone" data-col="basalte"></div></td>
+                    <td><div class="dropzone" data-col="gabbro"></div></td>
+                    <td><div class="dropzone" data-col="andésite"></div></td>
+                    <td><div class="dropzone" data-col="diorite"></div></td>
+                    <td><div class="dropzone" data-col="rhyolite"></div></td>
+                    <td><div class="dropzone" data-col="granite"></div></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label-col">Type de roche</td>
+                    <td>Volcanique</td>
+                    <td>Plutonique</td>
+                    <td>Volcanique</td>
+                    <td>Plutonique</td>
+                    <td>Volcanique</td>
+                    <td>Plutonique</td>
+                </tr>
+                <tr>
+                    <td class="label-col">Échantillon (Photo)</td>
+                    <td><div class="dropzone" data-col="basalte"></div></td>
+                    <td><div class="dropzone" data-col="gabbro"></div></td>
+                    <td><div class="dropzone" data-col="andésite"></div></td>
+                    <td><div class="dropzone" data-col="diorite"></div></td>
+                    <td><div class="dropzone" data-col="rhyolite"></div></td>
+                    <td><div class="dropzone" data-col="granite"></div></td>
+                </tr>
+                <tr>
+                    <td class="label-col">Caractéristiques macroscopiques</td>
+                    <td><div class="dropzone" data-col="basalte"></div></td>
+                    <td><div class="dropzone" data-col="gabbro"></div></td>
+                    <td><div class="dropzone" data-col="andésite"></div></td>
+                    <td><div class="dropzone" data-col="diorite"></div></td>
+                    <td><div class="dropzone" data-col="rhyolite"></div></td>
+                    <td><div class="dropzone" data-col="granite"></div></td>
+                </tr>
+                <tr>
+                    <td class="label-col">Caractéristiques microscopiques</td>
+                    <td><div class="dropzone" data-col="basalte"></div></td>
+                    <td><div class="dropzone" data-col="gabbro"></div></td>
+                    <td><div class="dropzone" data-col="andésite"></div></td>
+                    <td><div class="dropzone" data-col="diorite"></div></td>
+                    <td><div class="dropzone" data-col="rhyolite"></div></td>
+                    <td><div class="dropzone" data-col="granite"></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="sidebar">
+            <div class="cat-title">🪨 Roches</div>
+            <div class="etiquettes-container" id="cat-roches"></div>
+            <div class="cat-title">📸 Photos (Macro)</div>
+            <div class="etiquettes-container" id="cat-photos"></div>
+            <div class="cat-title">🔍 Aspect & Texture</div>
+            <div class="etiquettes-container" id="cat-textures"></div>
+            <div class="cat-title">💎 Minéraux</div>
+            <div class="etiquettes-container" id="cat-mineraux"></div>
+        </div>
     </div>
 
-    <button onclick="checkAnswers()">Vérifier les réponses</button>
-    <div id="feedback-msg" class="feedback"></div>
+    <div class="controls">
+        <a href="index.html" class="btn-back">Retour</a>
+        <button class="btn-check" onclick="checkAnswers()">Vérifier les réponses</button>
+        <button class="btn-reset" onclick="window.location.reload()">Réinitialiser le tableau</button>
+        <div id="score-display"></div>
+    </div>
+</div>
 
-    <script>
-        const labels = document.querySelectorAll('.label');
-        const zones = document.querySelectorAll('.drop-zone');
+<script>
+    // Configuration basée sur les sources fournies
+    const correction = {
+        "basalte": ["basalte", "basaltemacro.jpg", "Roche sombre (= mélanocrate)", "pas de cristaux visibles", "Texture microlitique", "présence de verre volcanique", "plagioclase", "pyroxène"],
+        "gabbro": ["gabbro", "gabbromacro.jpg", "Roche sombre (= mélanocrate)", "cristaux visibles", "Texture grenue", "plagioclase", "pyroxène"],
+        "andésite": ["andésite", "andesitemacro.jpg", "Roche moyennement sombre (= mésocrate)", "pas de cristaux visibles", "Texture microlitique", "présence de verre volcanique", "plagioclase", "amphibole verte (hornblende)", "mica", "quartz"],
+        "diorite": ["diorite", "dioritemacro.jpg", "Roche moyennement sombre (= mésocrate)", "cristaux visibles", "Texture grenue", "plagioclase", "amphibole verte (hornblende)", "mica", "quartz"],
+        "rhyolite": ["rhyolite", "rhyolitemacro.jpg", "Roche claire (= leucocrate)", "peu de cristaux visibles", "Texture microlitique", "présence de verre volcanique", "plagioclase", "feldspath", "mica", "quartz"],
+        "granite": ["granite", "granitemacro.jpg", "Roche claire (= leucocrate)", "cristaux visibles", "Texture grenue", "plagioclase", "feldspath", "mica", "quartz"]
+    };
 
-        labels.forEach(label => {
-            label.addEventListener('dragstart', e => {
-                e.dataTransfer.setData('text/plain', e.target.id);
+    const categories = {
+        "roches": ["basalte", "gabbro", "andésite", "diorite", "rhyolite", "granite"],
+        "photos": ["andesitemacro.jpg", "basaltemacro.jpg", "dioritemacro.jpg", "gabbromacro.jpg", "granitemacro.jpg", "rhyolitemacro.jpg"],
+        "textures": ["Roche sombre (= mélanocrate)", "Roche claire (= leucocrate)", "Roche moyennement sombre (= mésocrate)", "Texture microlitique", "Texture grenue", "cristaux visibles", "pas de cristaux visibles", "peu de cristaux visibles", "présence de verre volcanique"],
+        "mineraux": ["plagioclase", "feldspath", "mica", "amphibole verte (hornblende)", "quartz", "pyroxène"]
+    };
+
+    function init() {
+        Object.keys(categories).forEach(cat => {
+            const cont = document.getElementById('cat-' + cat);
+            categories[cat].forEach((item, i) => {
+                const el = document.createElement('div');
+                el.className = 'draggable';
+                el.draggable = true;
+                el.id = `item-${cat}-${i}`;
+                el.dataset.value = item;
+
+                if (cat === 'photos') {
+                    const img = document.createElement('img');
+                    img.src = item;
+                    img.setAttribute('draggable', 'false');
+                    el.appendChild(img);
+                } else {
+                    el.innerText = item;
+                }
+
+                el.addEventListener('dragstart', e => e.dataTransfer.setData('text', e.target.id));
+                cont.appendChild(el);
             });
         });
 
-        zones.forEach(zone => {
-            zone.addEventListener('dragover', e => e.preventDefault());
+        document.querySelectorAll('.dropzone').forEach(zone => {
+            zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('hover'); });
+            zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
             zone.addEventListener('drop', e => {
                 e.preventDefault();
+                zone.classList.remove('hover');
                 const id = e.dataTransfer.getData('text');
-                const element = document.getElementById(id);
-                zone.appendChild(element);
+                const original = document.getElementById(id);
+                if(!original) return;
+
+                const clone = original.cloneNode(true);
+                clone.classList.add('placed-tag');
+                clone.dataset.value = original.dataset.value;
+                clone.removeAttribute('id');
+                clone.draggable = false;
+                
+                const img = clone.querySelector('img');
+                if(img) img.style.pointerEvents = 'auto';
+
+                const btn = document.createElement('span');
+                btn.innerHTML = '&times;';
+                btn.className = 'btn-remove';
+                btn.onclick = (event) => { event.stopPropagation(); clone.remove(); };
+
+                clone.appendChild(btn);
+                zone.appendChild(clone);
             });
         });
+    }
 
-        function checkAnswers() {
-            let correctCount = 0;
-            zones.forEach(zone => {
-                // Ici on implémenterait une logique de vérification plus fine par ID
-                // Pour cet exemple, on valide visuellement le remplissage
-                if(zone.children.length > 0) {
-                    zone.classList.add('correct');
+    function checkAnswers() {
+        let score = 0;
+        let totalTags = 0;
+        document.querySelectorAll('.dropzone').forEach(zone => {
+            const rockType = zone.dataset.col;
+            zone.querySelectorAll('.placed-tag').forEach(tag => {
+                totalTags++;
+                if (correction[rockType].includes(tag.dataset.value)) {
+                    tag.classList.add('correct');
+                    tag.classList.remove('incorrect');
+                    score++;
+                } else {
+                    tag.classList.add('incorrect');
+                    tag.classList.remove('correct');
                 }
             });
-            document.getElementById('feedback-msg').innerText = "Vérification terminée ! (Logique de correction à adapter selon le corrigé précis)";
-        }
-    </script>
+        });
+        document.getElementById('score-display').innerText = `Résultat : ${score} bonne(s) réponse(s) sur ${totalTags} étiquettes.`;
+    }
+
+    init();
+</script>
+
 </body>
 </html>
