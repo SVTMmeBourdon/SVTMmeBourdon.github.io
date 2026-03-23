@@ -130,13 +130,13 @@
             color: #bdc3c7;
         }
 
-        /* Effet au clic */
         .ripple {
             position: absolute;
             background: rgba(52, 152, 219, 0.2);
             border-radius: 50%;
             transform: scale(0);
             animation: ripple-animation 0.6s linear;
+            pointer-events: none;
         }
         @keyframes ripple-animation {
             to { transform: scale(4); opacity: 0; }
@@ -151,46 +151,54 @@
     </div>
 
     <div class="container">
-        <h1>Ressources pour les classes de Mme Bourdon</h1>
-        <p class="subtitle">Module : Transmission de la vie chez l'Humain</p>
+        <h1>Ressources SVT - Mme Bourdon</h1>
+        <p class="subtitle">Bienvenue!</p>
 
         <nav class="menu-grid">
-            <a href="fonctionorgane.html" class="card">
-                <div class="icon">🔗</div>
+            <a href="seconde.html" class="card">
+                <div class="icon">🌱</div>
                 <div class="card-text">
-                    <span class="card-title">Schéma de synthèse interactif</span>
-                    <span class="card-desc">Relier les organes à leurs fonctions biologiques (Exercice de rappel).</span>
+                    <span class="card-title">Seconde</span>
+                    <span class="card-desc">Biodiversité, nutrition et organisation fonctionnelle du vivant.</span>
                 </div>
             </a>
 
-            <a href="tableaucomparaison.html" class="card">
-                <div class="icon">🎯</div>
+            <a href="premiere-es.html" class="card">
+                <div class="icon">🌍</div>
                 <div class="card-text">
-                    <span class="card-title">Exercice de Drag & Drop</span>
-                    <span class="card-desc">Placer les termes anatomiques dans le tableau de comparaison Homme/Femme.</span>
+                    <span class="card-title">Première Enseignement Scientifique</span>
+                    <span class="card-desc">Le rayonnement solaire, la photosynthèse et les bilans énergétiques.</span>
                 </div>
             </a>
 
-            <a href="tableaufinal.html" class="card">
-                <div class="icon">📋</div>
+            <a href="premiere-spe.html" class="card">
+                <div class="icon">🔬</div>
                 <div class="card-text">
-                    <span class="card-title">Bilan : Tableau de Correspondance</span>
-                    <span class="card-desc">Fiche de synthèse complète sur les échelles du vivant (Organe, Cellule, Molécule).</span>
+                    <span class="card-title">Première spécialité SVT</span>
+                    <span class="card-desc">Génétique, dynamique interne de la Terre et écosystèmes.</span>
+                </div>
+            </a>
+
+            <a href="methodes.html" class="card">
+                <div class="icon">📚</div>
+                <div class="card-text">
+                    <span class="card-title">Fiches méthodes</span>
+                    <span class="card-desc">Dessin d'observation, protocole expérimental et exploitation de documents.</span>
                 </div>
             </a>
         </nav>
 
         <footer>
-            &copy; 2024 - Sciences de la Vie et de la Terre - Académie de Mme Bourdon
+            &copy; 2025 - Sciences de la Vie et de la Terre - Académie Orléans-Tours
         </footer>
     </div>
 
     <script>
-        // Petit script pour un effet "ripple" visuel au clic sur les cartes
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('click', function(e) {
-                let x = e.clientX - e.target.offsetLeft;
-                let y = e.clientY - e.target.offsetTop;
+                let rect = this.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
                 let ripple = document.createElement('span');
                 ripple.style.left = x + 'px';
                 ripple.style.top = y + 'px';
