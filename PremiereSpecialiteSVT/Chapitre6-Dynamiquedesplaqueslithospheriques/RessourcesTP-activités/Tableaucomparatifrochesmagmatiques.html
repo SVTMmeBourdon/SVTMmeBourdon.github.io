@@ -1,1 +1,123 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice : Roches Magmatiques et Frontières de Plaques</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .header-img { display: block; margin: 0 auto 20px; max-width: 100%; height: auto; border: 2px solid #333; }
+        
+        table { width: 100%; border-collapse: collapse; background: white; margin-bottom: 20px; }
+        th, td { border: 2px solid #333; padding: 10px; text-align: center; vertical-align: top; width: 33%; }
+        th { background-color: #d1d1d1; }
+        .drop-zone { min-height: 100px; border: 1px dashed #bbb; background: #fafafa; padding: 5px; display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+        
+        .labels-container { background: #eee; padding: 15px; border-radius: 8px; border: 1px solid #ccc; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .label { padding: 8px 12px; background: #fff; border: 1px solid #555; border-radius: 4px; cursor: move; font-size: 0.9em; user-select: none; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        .label-img { width: 80px; height: 60px; object-fit: cover; display: block; margin-bottom: 5px; }
+        
+        .feedback { margin-top: 20px; text-align: center; font-weight: bold; font-size: 1.2em; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; display: block; margin: 20px auto; }
+        button:hover { background: #218838; }
+        
+        .correct { background-color: #d4edda !important; border-color: #28a745 !important; }
+        .incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align:center;">Tableau comparatif des roches magmatiques</h1>
+    
+    <img src="3series.jpg" alt="Schéma des 3 séries magmatiques" class="header-img">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Frontière</th>
+                <th>En divergence (Série 1)</th>
+                <th>En convergence (Série 2 & 3)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Type de Roche (Volcanique)</strong></td>
+                <td class="drop-zone" data-correct="basalte,andésite,rhyolite,texture microlitique,présence de verre volcanique,pas de cristaux visibles,peu de cristaux visibles"></td>
+                <td class="drop-zone" data-correct="andésite,rhyolite,texture microlitique,présence de verre volcanique"></td>
+            </tr>
+            <tr>
+                <td><strong>Type de Roche (Plutonique)</strong></td>
+                <td class="drop-zone" data-correct="gabbro,diorite,granite,texture grenue,cristaux visibles"></td>
+                <td class="drop-zone" data-correct="diorite,granite,texture grenue,cristaux visibles"></td>
+            </tr>
+            <tr>
+                <td><strong>Caractéristiques (Couleur & Minéraux)</strong></td>
+                <td class="drop-zone" data-correct="roche sombre (= mélanocrate),pyroxène,plagioclase,roche claire (= leucocrate),roche moyennement sombre (= mésocrate),feldspath,mica,amphibole verte (hornblende),quartz"></td>
+                <td class="drop-zone" data-correct="roche claire (= leucocrate),roche moyennement sombre (= mésocrate),feldspath,mica,amphibole verte (hornblende),quartz"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="labels-container" id="labels">
+        <div class="label" draggable="true" id="basalte">Basalte</div>
+        <div class="label" draggable="true" id="gabbro">Gabbro</div>
+        <div class="label" draggable="true" id="andésite">Andésite</div>
+        <div class="label" draggable="true" id="diorite">Diorite</div>
+        <div class="label" draggable="true" id="rhyolite">Rhyolite</div>
+        <div class="label" draggable="true" id="granite">Granite</div>
+        
+        <div class="label" draggable="true" id="mélanocrate">Roche sombre (= mélanocrate)</div>
+        <div class="label" draggable="true" id="mésocrate">Roche moyennement sombre (= mésocrate)</div>
+        <div class="label" draggable="true" id="leucocrate">Roche claire (= leucocrate)</div>
+        
+        <div class="label" draggable="true" id="microlitique">Texture microlitique</div>
+        <div class="label" draggable="true" id="grenue">Texture grenue</div>
+        
+        <div class="label" draggable="true" id="cristaux-v">Cristaux visibles</div>
+        <div class="label" draggable="true" id="cristaux-nv">Pas de cristaux visibles</div>
+        
+        <div class="label" draggable="true" id="plagioclase">Plagioclase</div>
+        <div class="label" draggable="true" id="quartz">Quartz</div>
+        <div class="label" draggable="true" id="pyroxene">Pyroxène</div>
+        
+        <div class="label" draggable="true" id="img_basalte"><img src="basalte_micro.jpg" class="label-img">Lame mince 1</div>
+        <div class="label" draggable="true" id="img_granite"><img src="granite_micro.jpg" class="label-img">Lame mince 2</div>
+    </div>
+
+    <button onclick="checkAnswers()">Vérifier les réponses</button>
+    <div id="feedback-msg" class="feedback"></div>
+
+    <script>
+        const labels = document.querySelectorAll('.label');
+        const zones = document.querySelectorAll('.drop-zone');
+
+        labels.forEach(label => {
+            label.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+            });
+        });
+
+        zones.forEach(zone => {
+            zone.addEventListener('dragover', e => e.preventDefault());
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                const id = e.dataTransfer.getData('text');
+                const element = document.getElementById(id);
+                zone.appendChild(element);
+            });
+        });
+
+        function checkAnswers() {
+            let correctCount = 0;
+            zones.forEach(zone => {
+                // Ici on implémenterait une logique de vérification plus fine par ID
+                // Pour cet exemple, on valide visuellement le remplissage
+                if(zone.children.length > 0) {
+                    zone.classList.add('correct');
+                }
+            });
+            document.getElementById('feedback-msg').innerText = "Vérification terminée ! (Logique de correction à adapter selon le corrigé précis)";
+        }
+    </script>
+</body>
+</html>
