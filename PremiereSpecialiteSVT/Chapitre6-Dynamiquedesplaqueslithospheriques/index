@@ -153,44 +153,36 @@
 
     <div class="container">
         <h1>Ressources SVT - Mme Bourdon</h1>
-        <p class="subtitle">Accès aux supports de cours et activités interactives</p>
+        <p class="subtitle">Espace de travail numérique</p>
 
         <nav class="menu-grid">
-            <a href="seconde/index.html" class="card">
-                <div class="icon">🌱</div>
+            <a href="Cours/index.html" class="card">
+                <div class="icon">📖</div>
                 <div class="card-text">
-                    <span class="card-title">Seconde</span>
-                    <span class="card-desc">Organisation du vivant, biodiversité et enjeux planétaires.</span>
+                    <span class="card-title">Cours</span>
+                    <span class="card-desc">Accéder aux chapitres, schémas de synthèse et documents de référence.</span>
                 </div>
             </a>
 
-            <a href="premiere-es/index.html" class="card">
-                <div class="icon">🌍</div>
-                <div class="card-text">
-                    <span class="card-title">Première Enseignement Scientifique</span>
-                    <span class="card-desc">Science, climat, énergie et enjeux de société.</span>
-                </div>
-            </a>
-
-            <a href="premiere-spe/index.html" class="card">
+            <a href="RessourcesTP-activités/index.html" class="card">
                 <div class="icon">🔬</div>
                 <div class="card-text">
-                    <span class="card-title">Première spécialité SVT</span>
-                    <span class="card-desc">Génétique, dynamique terrestre et fonctionnement du corps humain.</span>
+                    <span class="card-title">Ressources TP / Activités</span>
+                    <span class="card-desc">Protocoles expérimentaux, documents d'activités et supports de travaux pratiques.</span>
                 </div>
             </a>
 
-            <a href="methodes/index.html" class="card">
-                <div class="icon">📚</div>
+            <a href="Poursentrainer/index.html" class="card">
+                <div class="icon">🎯</div>
                 <div class="card-text">
-                    <span class="card-title">Fiches méthodes</span>
-                    <span class="card-desc">Réussir ses schémas, dessins d'observation et analyses de documents.</span>
+                    <span class="card-title">Pour s'entrainer</span>
+                    <span class="card-desc">Exercices interactifs, Drag & Drop, quiz et auto-évaluation.</span>
                 </div>
             </a>
         </nav>
 
         <footer>
-            &copy; 2024 - Sciences de la Vie et de la Terre - Académie de Mme Bourdon
+            &copy; 2026 - Sciences de la Vie et de la Terre - Mme Bourdon
         </footer>
     </div>
 
