@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice : Appareils Reproducteurs</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .exercice-container { max-width: 1100px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        .nav-header { width: 100%; display: flex; justify-content: flex-start; margin-bottom: 15px; }
+        .btn-back { text-decoration: none; color: #7f8c8d; font-size: 0.9em; display: flex; align-items: center; gap: 5px; transition: color 0.3s; }
+        .btn-back:hover { color: #2980b9; }
+
+        h1 { text-align: center; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-top: 0; }
+        p.consigne { font-style: italic; text-align: center; color: #555; }
+
+        .etiquettes-zone { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 30px; padding: 20px; background: #f9f9f9; border: 2px dashed #ccc; border-radius: 10px; }
+        .etiquette { padding: 10px 15px; cursor: grab; border-radius: 5px; font-weight: bold; text-align: center; user-select: none; transition: transform 0.2s; font-size: 0.9em; }
+        .etiquette.homme { background-color: #e3f2fd; color: #1976d2; border: 2px solid #1976d2; }
+        .etiquette.femme { background-color: #fce4ec; color: #c2185b; border: 2px solid #c2185b; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: fixed; }
+        th { background-color: #34495e; color: white; padding: 15px; }
+        td { padding: 15px; border: 1px solid #dfe6e9; text-align: center; height: 80px; }
+        .drop-zone { width: 100%; height: 100%; border: 2px dashed #bdc3c7; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .drop-zone.hover { background-color: #ecf0f1; border-color: #3498db; }
+        .fonction { background-color: #fff; font-size: 0.95em; color: #2d3436; }
+
+        #feedback { margin-top: 20px; text-align: center; font-weight: bold; font-size: 1.2em; min-height: 1.5em; }
+        .success { color: #27ae60; }
+        .error { color: #e74c3c; }
+        button { display: block; margin: 20px auto; padding: 10px 25px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+        button:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+
+<div class="exercice-container">
+    <div class="nav-header">
+        <a href="index.html" class="btn-back">← Retour à l'accueil</a>
+    </div>
+
+    <h1>Bilan : Comparaison des Appareils Reproducteurs</h1>
+    <p class="consigne">Glissez les étiquettes dans les bonnes cases du tableau.</p>
+
+    <div class="etiquettes-zone" id="etiquettes-source">
+        <div class="etiquette homme" draggable="true" id="h1" data-match="testicules">TESTICULES</div>
+        <div class="etiquette homme" draggable="true" id="h2" data-match="spermatozoides">SPERMATOZOÏDES</div>
+        <div class="etiquette homme" draggable="true" id="h3" data-match="canaux">CANAUX DÉFÉRENTS</div>
+        <div class="etiquette homme" draggable="true" id="h4" data-match="penis">PÉNIS / VERGE</div>
+        <div class="etiquette homme" draggable="true" id="h5" data-match="testosterone">TESTOSTÉRONE</div>
+        <div class="etiquette femme" draggable="true" id="f1" data-match="ovaires">OVAIRES</div>
+        <div class="etiquette femme" draggable="true" id="f2" data-match="ovocytes">OVOCYTES</div>
+        <div class="etiquette femme" draggable="true" id="f3" data-match="trompes">TROMPES DE FALLOPE</div>
+        <div class="etiquette femme" draggable="true" id="f4" data-match="vagin">VAGIN / VULVE</div>
+        <div class="etiquette femme" draggable="true" id="f5" data-match="hormonesf">OESTROGÈNES / PROGESTÉRONE</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:25%">Chez l'Homme</th>
+                <th style="width:50%">FONCTION BIOLOGIQUE</th>
+                <th style="width:25%">Chez la Femme</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><div class="drop-zone" data-expected="testicules"></div></td>
+                <td class="fonction"><b>Production des gamètes</b><br>et sécrétion des hormones sexuelles.</td>
+                <td><div class="drop-zone" data-expected="ovaires"></div></td>
+            </tr>
+            <tr>
+                <td><div class="drop-zone" data-expected="spermatozoides"></div></td>
+                <td class="fonction"><b>Gamètes</b><br>Cellules reproductrices transportant l'ADN.</td>
+                <td><div class="drop-zone" data-expected="ovocytes"></div></td>
+            </tr>
+            <tr>
+                <td><div class="drop-zone" data-expected="canaux"></div></td>
+                <td class="fonction"><b>Voies génitales</b><br>Transport des gamètes vers le lieu de rencontre.</td>
+                <td><div class="drop-zone" data-expected="trompes"></div></td>
+            </tr>
+            <tr>
+                <td><div class="drop-zone" data-expected="penis"></div></td>
+                <td class="fonction"><b>Organe de copulation</b><br>Permet l'accouplement et le dépôt des gamètes.</td>
+                <td><div class="drop-zone" data-expected="vagin"></div></td>
+            </tr>
+            <tr>
+                <td><div class="drop-zone" data-expected="testosterone"></div></td>
+                <td class="fonction"><b>Contrôle Hormonal</b><br>Molécules pilotant les caractères sexuels.</td>
+                <td><div class="drop-zone" data-expected="hormonesf"></div></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="feedback"></div>
+    <button onclick="verifierReponses()">Vérifier mes réponses</button>
+</div>
+
+<script>
+    const etiquettes = document.querySelectorAll('.etiquette');
+    const dropZones = document.querySelectorAll('.drop-zone');
+    let draggedElement = null;
+
+    etiquettes.forEach(etiquette => {
+        etiquette.addEventListener('dragstart', function(e) {
+            draggedElement = this;
+            setTimeout(() => this.style.opacity = '0.5', 0);
+        });
+        etiquette.addEventListener('dragend', function() {
+            draggedElement = null;
+            this.style.opacity = '1';
+        });
+    });
+
+    dropZones.forEach(zone => {
+        zone.addEventListener('dragover', e => e.preventDefault());
+        zone.addEventListener('dragenter', function() { this.classList.add('hover'); });
+        zone.addEventListener('dragleave', function() { this.classList.remove('hover'); });
+        zone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+            if (this.children.length > 0) {
+                document.getElementById('etiquettes-source').appendChild(this.children[0]);
+            }
+            this.appendChild(draggedElement);
+        });
+    });
+
+    document.getElementById('etiquettes-source').addEventListener('dragover', e => e.preventDefault());
+    document.getElementById('etiquettes-source').addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.appendChild(draggedElement);
+    });
+
+    function verifierReponses() {
+        let scores = 0;
+        let total = dropZones.length;
+        const feedback = document.getElementById('feedback');
+        dropZones.forEach(zone => {
+            const attendu = zone.getAttribute('data-expected');
+            const contient = zone.children[0] ? zone.children[0].getAttribute('data-match') : null;
+            if (contient === attendu) {
+                zone.style.borderColor = "#27ae60";
+                zone.style.backgroundColor = "#eafaf1";
+                scores++;
+            } else {
+                zone.style.borderColor = "#e74c3c";
+                zone.style.backgroundColor = "#fdedec";
+            }
+        });
+        if (scores === total) {
+            feedback.innerHTML = `<span class="success">Félicitations ! ${scores}/${total}. C'est parfait.</span>`;
+        } else {
+            feedback.innerHTML = `<span class="error">Tu as ${scores} bonnes réponses sur ${total}.</span>`;
+        }
+    }
+</script>
+</body>
+</html>
