@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM SVT - Histoire du Vivant</title>
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.2;
+            color: #2c3e50;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm 18mm;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.25em;
+            margin: 0 0 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #34495e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 12px;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            background-color: #f9f9f9;
+        }
+
+        .info-field { flex: 1; display: flex; align-items: center; }
+        .info-field label { font-weight: bold; margin-right: 8px; font-size: 0.9em; }
+        .info-field input { 
+            border: none; 
+            border-bottom: 1px solid #000; 
+            flex: 1;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        .instruction {
+            font-style: italic;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+            color: #c0392b;
+            text-align: center;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .question-block {
+            margin-bottom: 6px;
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-size: 0.92em;
+            margin-bottom: 4px;
+            color: #2c3e50;
+        }
+
+        .options-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px 10px;
+            padding-left: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.82em;
+        }
+
+        .option-item input { margin-right: 6px; cursor: pointer; }
+
+        .footer-label {
+            text-align: right;
+            font-size: 0.7em;
+            color: #95a5a6;
+            margin-top: auto;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 4px;
+        }
+
+        .btn-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+
+        button {
+            background: #2980b9;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        button:hover { transform: scale(1.05); background: #3498db; }
+
+        @media print {
+            body { background: white; }
+            .page { margin: 0; box-shadow: none; }
+            .btn-container { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="btn-container">
+        <button onclick="window.print()">📄 Télécharger en PDF</button>
+    </div>
+
+    <section class="page">
+        <h1>QCM sur l'interview :"Être(s) vivant(s) depuis 3 milliards et demi d'années"</h1>
+        
+        <div class="header-info">
+            <div class="info-field"><label>Nom & Prénom :</label><input type="text"></div>
+            <div class="info-field"><label>Classe :</label><input type="text"></div>
+        </div>
+
+        <p class="instruction">Plusieurs bonnes réponses sont possibles par question.</p>
+
+        <div class="questions-list">
+            <div class="question-block">
+                <div class="question-title">1. Quelles sont les fonctions de l'invitée Sylvie Crasquin ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Paléontologue</label>
+                    <label class="option-item"><input type="checkbox"> Directrice de recherche au CNRS</label>
+                    <label class="option-item"><input type="checkbox"> Chercheuse au MNHN</label>
+                    <label class="option-item"><input type="checkbox"> Journaliste scientifique</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">2. Comment définit-on une phase de "diversification" ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Apparitions > Disparitions</label>
+                    <label class="option-item"><input type="checkbox"> Espèces devenant identiques</label>
+                    <label class="option-item"><input type="checkbox"> Innovation biologique</label>
+                    <label class="option-item"><input type="checkbox"> Instant précis d'une extinction</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">3. Sur une horloge de 24h, quand apparaissent les hominidés ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> À 23h59 et 50 secondes</label>
+                    <label class="option-item"><input type="checkbox"> À 21h00</label>
+                    <label class="option-item"><input type="checkbox"> À midi</label>
+                    <label class="option-item"><input type="checkbox"> Les dernières secondes avant minuit</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">4. Combien d'espèces sont estimées vivre actuellement sur Terre ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> 8,7 millions</label>
+                    <label class="option-item"><input type="checkbox"> 100 millions</label>
+                    <label class="option-item"><input type="checkbox"> 300 000</label>
+                    <label class="option-item"><input type="checkbox"> 1 milliard</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">5. Quel pourcentage d'espèces a disparu depuis 600 millions d'années ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> 50%</label>
+                    <label class="option-item"><input type="checkbox"> 75%</label>
+                    <label class="option-item"><input type="checkbox"> 95%</label>
+                    <label class="option-item"><input type="checkbox"> 99.9%</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">6. Quelle est la durée de vie moyenne d'une espèce ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> 100 000 ans</label>
+                    <label class="option-item"><input type="checkbox"> 1 million d'années</label>
+                    <label class="option-item"><input type="checkbox"> 4,8 millions d'années</label>
+                    <label class="option-item"><input type="checkbox"> 10 millions d'années</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">7. Quelles innovations caractérisent l'explosion cambrienne ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Apparition du squelette</label>
+                    <label class="option-item"><input type="checkbox"> Apparition des mammifères</label>
+                    <label class="option-item"><input type="checkbox"> Diversification multicellulaire</label>
+                    <label class="option-item"><input type="checkbox"> Vie sur les continents</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">8. Quels sont les trois critères d'une crise biologique majeure ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Touche la majeure partie du vivant</label>
+                    <label class="option-item"><input type="checkbox"> Brutale (échelle géol.)</label>
+                    <label class="option-item"><input type="checkbox"> Impact mondial</label>
+                    <label class="option-item"><input type="checkbox"> Causée par une météorite</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">9. À quelle heure la vie colonise-t-elle les continents ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> 16h00</label>
+                    <label class="option-item"><input type="checkbox"> 21h50</label>
+                    <label class="option-item"><input type="checkbox"> 23h00</label>
+                    <label class="option-item"><input type="checkbox"> 23h59</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">10. Qu'est-ce qui a causé la première grande crise (Ordovicien) ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Glaciation intense</label>
+                    <label class="option-item"><input type="checkbox"> Réchauffement post-glaciation</label>
+                    <label class="option-item"><input type="checkbox"> Apparition des prédateurs</label>
+                    <label class="option-item"><input type="checkbox"> Astéroïde</label>
+                </div>
+            </div>
+        </div>
+        <div class="footer-label">SVT Évaluation - Page 1/2</div>
+    </section>
+
+    <section class="page">
+        <div class="questions-list">
+            <div class="question-block">
+                <div class="question-title">11. Pourquoi le Dévonien est-il surnommé "l'ère des poissons" ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Diversification extraordinaire</label>
+                    <label class="option-item"><input type="checkbox"> Seul groupe existant</label>
+                    <label class="option-item"><input type="checkbox"> Innovation des mâchoires</label>
+                    <label class="option-item"><input type="checkbox"> Invasion des forêts</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">12. Quels phénomènes expliquent la crise de la fin du Dévonien ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Anoxie des eaux</label>
+                    <label class="option-item"><input type="checkbox"> Chutes de météorites</label>
+                    <label class="option-item"><input type="checkbox"> Réchauffement climatique</label>
+                    <label class="option-item"><input type="checkbox"> Éruptions volcaniques</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">13. Quelle est la crise la plus dévastatrice de l'histoire ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Crétacé-Tertiaire</label>
+                    <label class="option-item"><input type="checkbox"> Fin du Permien</label>
+                    <label class="option-item"><input type="checkbox"> Crise actuelle</label>
+                    <label class="option-item"><input type="checkbox"> Cambrien</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">14. Facteurs du "Crime de l'Orient-Express" (Permien) :</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Volcanisme (Sibérie)</label>
+                    <label class="option-item"><input type="checkbox"> Réchauffement de 10°C</label>
+                    <label class="option-item"><input type="checkbox"> Eaux toxiques</label>
+                    <label class="option-item"><input type="checkbox"> Virus spatiaux</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">15. Innovation végétale majeure au Crétacé :</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Angiospermes (Fleurs)</label>
+                    <label class="option-item"><input type="checkbox"> Mousses</label>
+                    <label class="option-item"><input type="checkbox"> Nanoplancton calcaire</label>
+                    <label class="option-item"><input type="checkbox"> Champignons géants</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">16. Causes de l'extinction des dinosaures (-66 Ma) :</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Météorite (Mexique)</label>
+                    <label class="option-item"><input type="checkbox"> Volcanisme (Inde)</label>
+                    <label class="option-item"><input type="checkbox"> Changements climatiques</label>
+                    <label class="option-item"><input type="checkbox"> Épidémie</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">17. Depuis quand Homo sapiens est-il apparu ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> 300 000 ans</label>
+                    <label class="option-item"><input type="checkbox"> 7 Ma</label>
+                    <label class="option-item"><input type="checkbox"> 66 Ma</label>
+                    <label class="option-item"><input type="checkbox"> 2 000 ans</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">18. En quoi la sixième crise est-elle différente ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Causée par une seule espèce</label>
+                    <label class="option-item"><input type="checkbox"> Uniquement les mammifères</label>
+                    <label class="option-item"><input type="checkbox"> Milliers de fois plus rapide</label>
+                    <label class="option-item"><input type="checkbox"> Domination de la biomasse</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">19. Que signifie « l'urgence c'est de ralentir » ?</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Ralentir la surconsommation</label>
+                    <label class="option-item"><input type="checkbox"> Ralentir les gaz à effet de serre</label>
+                    <label class="option-item"><input type="checkbox"> Ralentir la destruction des biotopes</label>
+                    <label class="option-item"><input type="checkbox"> Ralentir le temps géologique</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">20. Composants essentiels d'une chaîne alimentaire :</div>
+                <div class="options-layout">
+                    <label class="option-item"><input type="checkbox"> Producteurs</label>
+                    <label class="option-item"><input type="checkbox"> Consommateurs</label>
+                    <label class="option-item"><input type="checkbox"> Décomposeurs</label>
+                    <label class="option-item"><input type="checkbox"> Super-héros</label>
+                </div>
+            </div>
+        </div>
+        <div class="footer-label">Fin du Questionnaire - Page 2/2</div>
+    </section>
+
+</body>
+</html>
